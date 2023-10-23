@@ -1,0 +1,57 @@
+<div class="projectLinkFormContainer formContainer">
+    <h2 class="projectLinkFormTitle"></h2>
+
+    <div class="projectLinkOptions linkOptions">
+        <div>
+            <a  class="addTaskLink" href="#">Add Tasks</a>
+        </div>
+        <div>
+            <a class="renameProjectLink" href="#">Rename Project</a>
+        </div>
+        <div>
+            <a class="deleteProjectLink" href="#">Delete Project</a>
+        </div>
+    </div>
+
+    <div class="addTaskOption projectOption">
+        <form action="">
+            <div>
+                <label for="newTaskInput">Enter Task Name</label>
+                <input class="newTask" id="newTaskInput" type="text" required>
+            </div>
+    
+            <div>
+                <label >Pick a Priority
+                    <input type="radio" name="priority" id="priorityLow" value="low">
+                    <label for="priorityLow">Low</label>
+        
+                    <input type="radio" name="priority" id="priorityHigh" value="high">
+                    <label for="priorityHigh">High</label>
+                </label>
+            </div>
+            <button class="addTaskButton" type="button">Submit</button>
+        </form>
+    </div>
+    
+
+    <div class="renameProjectOption projectOption">
+        <form action="">
+            <div>
+                <label for="renameProjectInput">Enter Project Name</label>
+                <input  class="renameProject" id="renameProjectInput" type="text" required>
+            </div>
+            <button class="renameProjectButton" type="button">Submit</button>
+        </form>
+    </div>
+
+    <div class="deleteOption projectOption">
+        <form action="">
+            <div>
+                <label for="deleteProjectInput">Are you sure you want to delete this project?</label>
+                <input  class="deleteProject" id="deleteProjectInput" type="checkbox" required>
+            </div>
+            <button class="deleteProjectButton" type="button">Submit</button>
+        </form>
+    </div>
+
+</div>
