@@ -91,7 +91,8 @@ h1 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.6);
 }
 
-.allTasks > div {
+.allTasks > div,
+.todayTasks > div {
     margin-top: 40px;
 }
 
@@ -126,10 +127,6 @@ svg{
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-[data-active-tab=false]{
-    display: none;
 }
 
 .formContainer{
@@ -177,6 +174,11 @@ span.backSvg{
     justify-content: space-between;
 }
 
+.dateDiv,
+.notesContainer{
+    margin-right: 10px;
+}
+
 .withSvg{
     display: flex;
     justify-content: space-between;
@@ -193,4 +195,13 @@ input {
 
 .lowPriority{
     background: linear-gradient(to right, #037801, #037801 5px, transparent 5px);
+}
+
+#userNotes,
+#userNotesLink {
+    resize: none;
+}
+
+.dialog {
+    display: none;
 }

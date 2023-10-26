@@ -1,6 +1,6 @@
 
 import { removeLinkOptions } from "./projectLinkOptions";
-import { projectList } from "./projects";
+import { captureDate, projectList } from "./projects";
 import { overlayToggle, removeActiveForm } from "./eventListeners";
 import { initialize } from ".";
 import { backSvg } from "./svgModule";
@@ -19,6 +19,12 @@ export function handleTaskOptionDisplay() {
             case event.target.classList.contains('renameTaskLink'):
                 let renameTaskOption = document.querySelector('.renameTaskOption');
                 renameTaskOption.classList.toggle('active');
+                displayBackSvg()
+                removeLinkOptions();
+                break;
+            case event.target.classList.contains('changeDueDateLink'):
+                let newDateTaskOption = document.querySelector('.newDateTaskOption');
+                newDateTaskOption.classList.toggle('active');
                 displayBackSvg()
                 removeLinkOptions();
                 break;
@@ -118,6 +124,81 @@ export function renameTaskOption(){
     })
 }
 
+export function changeDueDateTaskOption(){
+    let contentDisplay = document.querySelector('.contentDisplay');
+    let projectName = '';
+    contentDisplay.addEventListener('click', (event)=>{
+        
+        if (event.target.closest('.projectTaskContainer')){
+            projectName = event.target.closest('.projectTaskContainer').querySelector('h3').textContent;
+        }
+        
+        if (event.target.classList.contains('newDateButton')){
+            let taskName = getTaskName()
+        
+            for (let a of projectList){
+                if (a.projectName === projectName){
+                    let project = a
+
+                    for (let b of project.tasks){
+                        if (b.taskName === taskName){
+
+                            let changedDate = document.getElementById('newDateInput').value;
+                            if (!changedDate){
+                                return
+                            }
+
+                            let date = captureDate(changedDate)
+                            b.changeDate(date)
+                            overlayToggle()
+                            removeActiveForm()
+                            initialize()
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+
+export function getNotesContent(){
+    let contentDisplay = document.querySelector('.contentDisplay');
+    let projectName = '';
+    contentDisplay.addEventListener('click', (event)=>{
+        
+        if (event.target.closest('.projectTaskContainer')){
+            projectName = event.target.closest('.projectTaskContainer').querySelector('h3').textContent;
+        }
+        
+        if (event.target.classList.contains('addNotesLink')){
+            let taskName = document.querySelector('.taskLinkFormTitle').innerHTML.split(' ')[1];
+        
+            for (let a of projectList){
+                if (a.projectName === projectName){
+                    let project = a
+
+                    for (let b of project.tasks){
+                        if (b.taskName === taskName){
+                            const textarea = document.getElementById('userNotesLink');
+                            let addNotesButton = document.querySelector('.addNotesButton')
+
+                            textarea.innerHTML = b.notesContent || '';
+
+                            addNotesButton.addEventListener('click', ()=>{
+                                b.addNotes(textarea.value)
+                                overlayToggle()
+                                removeActiveForm()
+                                initialize()
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+
+
 export function deleteTaskOption(){
     let contentDisplay = document.querySelector('.contentDisplay');
     let projectName = '';
@@ -154,8 +235,6 @@ function displayBackSvg(){
     taskLinkFormTitle.appendChild(backSvg)
 }
 
-    
-
 function getTaskName() {
     let taskTitle = document.querySelector('.taskLinkFormTitle');
     if (taskTitle) {
@@ -168,3 +247,5 @@ function getTaskName() {
     }
     return '';
 }
+   
+

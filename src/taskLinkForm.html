@@ -10,7 +10,10 @@
             <a class="renameTaskLink" href="#">Rename Task</a>
         </div>
         <div>
-            <a class="addNotesLink" href="#">Add Notes</a>
+            <a class="changeDueDateLink" href="#">Change Due Date</a>
+        </div>
+        <div>
+            <a class="addNotesLink" href="#">View/Add Notes</a>
         </div>
         <div>
             <a class="deleteTaskLink" href="#">Delete Task</a>
@@ -42,11 +45,21 @@
         </form>
     </div>
 
+    <div class="newDateTaskOption taskOption">
+        <form action="">
+            <div>
+                <label for="newDateInput">Pick New Due Date</label>
+                <input class="newDueDate" id="newDateInput" type="date" required>
+            </div>
+            <button class="newDateButton" type="button">Submit</button>
+        </form>
+    </div>
+
     <div class="addNotesOption taskOption">
         <form action="">
             <div>
-                <label for="addNotesInput">Enter Notes</label>
-                <input  class="addTaskNotes" id="addNotesInput" type="text" required>
+                <label for="userNotesLink">Enter Notes</label>
+                <textarea id="userNotesLink" rows="3" style="width: 100%;"></textarea>
             </div>
             <button class="addNotesButton" type="button">Submit</button>
         </form>

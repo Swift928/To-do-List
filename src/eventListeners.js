@@ -7,15 +7,13 @@ import { handleBackSvgClick } from "./svgModule";
 
 
 export function eventListeners(){
-
     handleBackSvgClick()
 
     let projectSvg = document.querySelector('.newProjectSvg')
     projectSvg.addEventListener('click', ()=>{
     overlayToggle()
-    loadModule('newProjectSvg.html')
-
-    document.body.addEventListener('click', newProject)
+    loadModule('newProjectSvg.html', newProjectClass)
+        
     })
 
     const overlay = document.querySelector('.overlay')
@@ -49,13 +47,17 @@ export function eventListeners(){
     tkLinks.changePriorityOption()
     tkLinks.renameTaskOption()
     tkLinks.deleteTaskOption()
+    tkLinks.getNotesContent()
     tkLinks.handleTaskOptionDisplay()
+    tkLinks.changeDueDateTaskOption()
 
     pjLinks.taskLinkOption()
     pjLinks.renameLinkOption()
     pjLinks.deleteLinkOption()
     pjLinks.handleProjectOptionDisplay()   
 }
+
+
 
 export function overlayToggle() {
     const overlay = document.querySelector('.overlay')
@@ -73,24 +75,27 @@ export function removeActiveForm(){
     contentDisplay.removeChild(formContainer)
 }
 
-function newProject(event){
-    if(event.target.classList.contains('newProjectButton')){
+
+function newProjectClass(event){
+    let newProjectEnterButton = document.querySelector('.newProjectButton')
+
+    newProjectEnterButton.addEventListener('click', (event)=>{
         event.preventDefault()
-        newProjectClass()
-    }
+
+        let projectNameInput = document.querySelector('.projectNameInput').value.trim()
+
+        if (!projectNameInput){
+            return
+        }
+
+        newProjectVerification(projectNameInput)
+        overlayToggle()
+        removeActiveForm()
+        initialize()
+    })
 }
 
-function newProjectClass(){
-    let projectNameInput = document.querySelector('.projectNameInput').value.trim()
-
-    if (!projectNameInput){
-        return
-    }
-
-    newProjectVerification(projectNameInput)
-    overlayToggle()
-    removeActiveForm()
-    initialize()
+export function clearContent() {
+    const contentDisplay = document.querySelector('.contentDisplay');
+    contentDisplay.innerHTML = '';
 }
-
-

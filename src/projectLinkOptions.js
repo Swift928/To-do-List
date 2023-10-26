@@ -1,4 +1,4 @@
-import { projectList } from "./projects";
+import { captureDate, projectList } from "./projects";
 import { overlayToggle, removeActiveForm } from "./eventListeners";
 import { initialize } from ".";
 
@@ -10,6 +10,7 @@ export function handleProjectOptionDisplay() {
             case event.target.classList.contains('addTaskLink'):
                 let addTaskOption = document.querySelector('.addTaskOption');
                 addTaskOption.classList.toggle('active');
+                toggleNotesDialog()
                 removeLinkOptions();
                 break;
             case event.target.classList.contains('renameProjectLink'):
@@ -41,6 +42,9 @@ export function taskLinkOption(){
             for (let sta of projectList){
                 if (sta.projectName === projectNameAfterSpace){
                     let newTaskInput = document.getElementById('newTaskInput').value.trim()
+                    let newTaskDate = document.getElementById('dueDateInput').value
+                    let taskDate = newTaskDate ? captureDate(newTaskDate) : '';
+                    let notes = document.getElementById('userNotes').value
                     const radioButtons = document.querySelectorAll('input[name="priority"]');
 
                     let selectedValue = '';
@@ -55,7 +59,7 @@ export function taskLinkOption(){
                         return
                     }
 
-                    sta.addTask(newTaskInput, selectedValue)
+                    sta.addTask(newTaskInput, selectedValue, taskDate, notes)
                     overlayToggle()
                     removeActiveForm()
                     initialize()
@@ -111,4 +115,13 @@ export function deleteLinkOption(){
             initialize()
         }
     })
+}
+
+
+function toggleNotesDialog (){
+    let openNotes = document.querySelector('.openNotes')
+    openNotes.addEventListener('click', ()=> {
+        let notesDialog = document.querySelector('.dialog')
+        notesDialog.classList.toggle('active')
+    });
 }

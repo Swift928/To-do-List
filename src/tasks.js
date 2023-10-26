@@ -2,7 +2,7 @@ import { displayProjectTasks, projectList } from "./projects"
 
 export function tasksRender(){
     
-    let tasksContainer = document.querySelector('.allTasks')
+    let tasksContainer = document.querySelector('.allTasks') || document.querySelector('.todayTasks')
     tasksContainer.innerHTML = ''
 
     for (let sta of projectList){

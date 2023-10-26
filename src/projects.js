@@ -1,11 +1,12 @@
 import { createTrashSVG } from "./svgModule"
+import { parseISO, format } from "date-fns"
 
 export class Project {
     constructor(name){
         this._name = name,
         this._tasks = [new Task('Family'),
         new Task('Apple'),
-        new Task('Destiny')]
+        new Task('Destiny', 'low', '2023/10/25')]
     }
 
     get projectName(){
@@ -16,8 +17,8 @@ export class Project {
         return this._tasks
     }
 
-    addTask(taskName, priority){
-        const newTask = new Task(taskName, priority)
+    addTask(taskName, priority, dueDate, notes = ''){
+        const newTask = new Task(taskName, priority, dueDate, notes)
         this._tasks.push(newTask)
     }
 
@@ -31,17 +32,27 @@ export class Project {
 }
 
 class Task {
-    constructor(name, priority){
+    constructor(name, priority, dueDate, notes = ''){
         this._name = name,
-        this._priority = priority
+        this._priority = priority,
+        this._dueDate = dueDate,
+        this._notes = notes
     }
 
     get taskName(){
         return this._name
     }
 
+    get notesContent(){
+        return this._notes
+    }
+
     get priorityLevel(){
         return this._priority
+    }
+
+    get dateDue(){
+        return this._dueDate
     }
 
     changePriority(priority){
@@ -52,8 +63,12 @@ class Task {
         this._name = name
     }
 
-    addNotes(notes){
-        
+    changeDate(newDate){
+        this._dueDate = newDate
+    }
+
+    addNotes(newNotes){
+        this._notes = newNotes
     }
 }
 
@@ -80,12 +95,20 @@ export function displayProjects() {
     }
 }
 
+
 export function displayProjectTasks(item){
     let tasksContainer = document.createElement('div');
     tasksContainer.classList.add('tasksContainer');
+    let todayView = document.querySelector('.todayTasks')
+    let todayList = item.tasks
     
+    if (todayView){
+        let todayFormatted = format(new Date(), 'yyyy/MM/dd');
+        todayList = todayList.filter((item) => item.dateDue === todayFormatted)
+    }
 
-    for (let task of item.tasks){
+    for (let task of todayList){
+
         let taskContainer = document.createElement('div')
         let taskItem = document.createElement('a');
         taskItem.setAttribute('href', '#');
@@ -99,6 +122,12 @@ export function displayProjectTasks(item){
         
         taskItem.innerHTML = task.taskName;
         taskContainer.appendChild(taskItem)
+        let lame = document.createElement('div')
+        lame.classList.add('dateDiv')
+        let blimp = task.dateDue ? task.dateDue : "";
+        lame.innerHTML = blimp
+        let notes = task.notesContent ? taskContainer.appendChild(handleNotes(task)) : ""
+        taskContainer.appendChild(lame)
         taskContainer.appendChild(createTrashSVG())
         tasksContainer.appendChild(taskContainer)
     }
@@ -117,4 +146,21 @@ export function newProjectVerification(newProjectName){
     if (!exists){
         projectList.push(new Project(newProjectName))
     }
+}
+
+export function captureDate(date) {
+    let parsedDate = parseISO(date);
+    let formattedDate = format(parsedDate, 'yyyy/MM/dd');
+  
+    return formattedDate
+  }
+
+function handleNotes(task){
+    let notesContainer;
+    if (task.notesContent){
+        notesContainer = document.createElement('div')
+        notesContainer.classList.add('notesContainer')
+        notesContainer.innerHTML= 'Notes!'
+    }
+    return notesContainer
 }
