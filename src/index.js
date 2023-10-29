@@ -6,7 +6,7 @@ import { loadTabs } from './tasks';
 
 
 export function loadModule(moduleName, callback = undefined) {
-    fetch(`../src/${moduleName}`)
+    fetch(`./${moduleName}`)
         .then(response => response.text())
         .then(data => {
             document.querySelector('.contentDisplay').innerHTML += data;
@@ -25,4 +25,4 @@ export function initialize() {
 }
 eventListeners()
 
-loadModule('allTasks.html', initialize)
+loadModule('./allTasks.html', initialize)
