@@ -1,4 +1,4 @@
-import { Project, newProjectVerification, projectList, removeProject } from "./projects"
+import { newProjectVerification } from "./projects"
 import { initialize, loadModule } from "."
 import * as pjLinks from "./projectLinkOptions";
 import * as tkLinks from "./taskLinkOptions";

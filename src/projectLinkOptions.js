@@ -1,5 +1,6 @@
 import { captureDate, projectList } from "./projects";
 import { overlayToggle, removeActiveForm } from "./eventListeners";
+import { displayBackSvg, getName } from "./taskLinkOptions";
 import { initialize } from ".";
 
 
@@ -10,18 +11,21 @@ export function handleProjectOptionDisplay() {
             case event.target.classList.contains('addTaskLink'):
                 let addTaskOption = document.querySelector('.addTaskOption');
                 addTaskOption.classList.toggle('active');
-                toggleNotesDialog()
+                toggleNotesDialog();
+                displayBackSvg();
                 removeLinkOptions();
                 break;
             case event.target.classList.contains('renameProjectLink'):
                 let renameProjectOption = document.querySelector('.renameProjectOption');
                 renameProjectOption.classList.toggle('active');
                 removeLinkOptions();
+                displayBackSvg();
                 break;
             case event.target.classList.contains('deleteProjectLink'):
                 let deleteOption = document.querySelector('.deleteOption');
                 deleteOption.classList.toggle('active');
                 removeLinkOptions();
+                displayBackSvg()
                 break;
         }
     });
@@ -36,11 +40,11 @@ export function taskLinkOption(){
     let contentDisplay = document.querySelector('.contentDisplay');
     contentDisplay.addEventListener('click', (event)=>{
         if (event.target.classList.contains('addTaskButton')){
-            let projectName = document.querySelector('.projectLinkFormTitle').innerHTML
-            let projectNameAfterSpace = projectName.split(' ')[1];
+            event.preventDefault()
+            let projectN = getName()
             
             for (let sta of projectList){
-                if (sta.projectName === projectNameAfterSpace){
+                if (sta.projectName === projectN){
                     let newTaskInput = document.getElementById('newTaskInput').value.trim()
                     let newTaskDate = document.getElementById('dueDateInput').value
                     let taskDate = newTaskDate ? captureDate(newTaskDate) : '';
@@ -73,11 +77,11 @@ export function renameLinkOption(){
     let contentDisplay = document.querySelector('.contentDisplay');
     contentDisplay.addEventListener('click', (event)=>{
         if (event.target.classList.contains('renameProjectButton')){
-            let projectName = document.querySelector('.projectLinkFormTitle').innerHTML
-            let projectNameAfterSpace = projectName.split(' ')[1];
+            event.preventDefault()
+            let projectN = getName()
             
             for (let sta of projectList){
-                if (sta.projectName === projectNameAfterSpace){
+                if (sta.projectName === projectN){
                     let renameProjectInput = document.getElementById('renameProjectInput').value.trim()
 
                     if (!renameProjectInput){
@@ -99,16 +103,23 @@ export function deleteLinkOption(){
     let contentDisplay = document.querySelector('.contentDisplay');
     contentDisplay.addEventListener('click', (event)=>{
         if (event.target.classList.contains('deleteProjectButton')){
-            
+            event.preventDefault()
             let deleteProject = document.querySelector('.deleteProject').checked
             if (!deleteProject){
                 return
             }
 
-            let projectName = document.querySelector('.projectLinkFormTitle').innerHTML
-            let projectNameAfterSpace = projectName.split(' ')[1];
+            let projectN = getName()
 
-            projectList = projectList.filter((project) => project.projectName !== projectNameAfterSpace);
+            for (let project of projectList) {
+                if (project.projectName === projectN) {
+                    const index = projectList.indexOf(project);
+                    if (index > -1) {
+                        projectList.splice(index, 1);
+                    }
+                    break;
+                }
+            }
 
             overlayToggle()
             removeActiveForm()

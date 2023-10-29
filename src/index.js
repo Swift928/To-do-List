@@ -1,7 +1,8 @@
 import './style.css';
 import { tasksRender } from './tasks';
-import { eventListeners, clearContent } from './eventListeners';
+import { eventListeners } from './eventListeners';
 import { displayProjects } from './projects';
+import { loadTabs } from './tasks';
 
 
 export function loadModule(moduleName, callback = undefined) {
@@ -17,23 +18,6 @@ export function loadModule(moduleName, callback = undefined) {
 }
 
 loadTabs()
-function loadTabs(){
-    document.querySelectorAll('a').forEach((item) => {
-        switch (true){
-            case item.innerHTML === 'Today':
-                item.addEventListener('click', ()=>{
-                clearContent()
-                loadModule('today.html', tasksRender)})
-                break;
-            case item.innerHTML === 'All Tasks':
-                item.addEventListener('click', ()=>{
-                clearContent()
-                loadModule('allTasks.html', initialize)})
-                break;
-        }
-    })
-}
-
 
 export function initialize() {
     tasksRender()

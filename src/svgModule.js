@@ -27,9 +27,16 @@ backSvg.innerHTML = `
 export function handleBackSvgClick(){
   backSvg.addEventListener('click', () => {
       removeLinkOptions();
-      const taskOptions = document.querySelectorAll('.taskOption');
+      let taskOptions = document.querySelectorAll('.taskOption')
+      if (taskOptions.length === 0){
+        taskOptions = document.querySelectorAll('.projectOption')
+      }
 
-      let taskLinkFormTitle = document.querySelector('.taskLinkFormTitle');
+      let taskLinkFormTitle = document.querySelector('.taskLinkFormTitle')
+      if (!taskLinkFormTitle) {
+        taskLinkFormTitle = document.querySelector('.projectLinkFormTitle')
+      }
+
       taskLinkFormTitle.classList.toggle('withSvg')
       taskLinkFormTitle.removeChild(backSvg)
 

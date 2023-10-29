@@ -1,6 +1,6 @@
 
 import { removeLinkOptions } from "./projectLinkOptions";
-import { captureDate, projectList } from "./projects";
+import { captureDate, projectList, updateProjectList } from "./projects";
 import { overlayToggle, removeActiveForm } from "./eventListeners";
 import { initialize } from ".";
 import { backSvg } from "./svgModule";
@@ -54,7 +54,7 @@ export function changePriorityOption(){
         }
         
         if (event.target.classList.contains('changePriorityButton')){
-            let taskName = getTaskName()
+            let taskName = getName()
         
             for (let a of projectList){
                 if (a.projectName === projectName){
@@ -76,6 +76,7 @@ export function changePriorityOption(){
                             }
         
                             b.changePriority(selectedValue)
+                            updateProjectList()
                             overlayToggle()
                             removeActiveForm()
                             initialize()
@@ -97,7 +98,7 @@ export function renameTaskOption(){
         }
         
         if (event.target.classList.contains('renameTaskButton')){
-            let taskName = getTaskName()
+            let taskName = getName()
         
             for (let a of projectList){
                 if (a.projectName === projectName){
@@ -134,7 +135,7 @@ export function changeDueDateTaskOption(){
         }
         
         if (event.target.classList.contains('newDateButton')){
-            let taskName = getTaskName()
+            let taskName = getName()
         
             for (let a of projectList){
                 if (a.projectName === projectName){
@@ -209,7 +210,7 @@ export function deleteTaskOption(){
         }
         
         if (event.target.classList.contains('deleteTaskButton')){
-            let taskName = getTaskName()
+            let taskName = getName()
         
             for (let a of projectList){
                 if (a.projectName === projectName){
@@ -229,16 +230,20 @@ export function deleteTaskOption(){
     })
 }
 
-function displayBackSvg(){
-    let taskLinkFormTitle = document.querySelector('.taskLinkFormTitle');
+export function displayBackSvg(){
+    let taskLinkFormTitle = document.querySelector('.taskLinkFormTitle')
+     ||document.querySelector('.projectLinkFormTitle');
     taskLinkFormTitle.classList.toggle('withSvg')
     taskLinkFormTitle.appendChild(backSvg)
 }
 
-function getTaskName() {
-    let taskTitle = document.querySelector('.taskLinkFormTitle');
-    if (taskTitle) {
-        const text = taskTitle.innerHTML;
+export function getName() {
+    let name = document.querySelector('.taskLinkFormTitle');
+    if (!name){
+        name = document.querySelector('.projectLinkFormTitle')
+    }
+    if (name) {
+        const text = name.innerHTML;
         const spaceIndex = text.indexOf(' ');
         const lessThanIndex = text.indexOf('<');
         if (spaceIndex !== -1 && lessThanIndex !== -1) {

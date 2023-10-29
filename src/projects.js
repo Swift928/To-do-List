@@ -1,5 +1,6 @@
 import { createTrashSVG } from "./svgModule"
 import { parseISO, format } from "date-fns"
+import { filterTasksByDateRange } from "./upcoming"
 
 export class Project {
     constructor(name){
@@ -72,12 +73,31 @@ class Task {
     }
 }
 
-export let projectList = [
+let initialProjectList = [
     new Project('Family'),
     new Project('Shopping'),
     new Project('Education'),
     new Project('Gym')
 ]
+
+let projectListJSON = JSON.stringify(initialProjectList);
+localStorage.setItem('projectList', projectListJSON);
+
+function getProjectList(){
+    let projectListJSON = localStorage.getItem('projectList')
+    let retrievedData = JSON.parse(projectListJSON)
+    return retrievedData.map(item => new Project(item._name))
+}
+
+export let projectList = getProjectList()
+
+export function updateProjectList(){
+    let updatedProjectListJSON = JSON.stringify(projectList);
+    localStorage.setItem('projectList', updatedProjectListJSON);
+}
+
+
+
 
 
 export function displayProjects() {
@@ -100,11 +120,14 @@ export function displayProjectTasks(item){
     let tasksContainer = document.createElement('div');
     tasksContainer.classList.add('tasksContainer');
     let todayView = document.querySelector('.todayTasks')
+    let dateRange = document.querySelector('.upcomingTabDateRange');
     let todayList = item.tasks
     
     if (todayView){
         let todayFormatted = format(new Date(), 'yyyy/MM/dd');
         todayList = todayList.filter((item) => item.dateDue === todayFormatted)
+    } else if(dateRange){
+        todayList = filterTasksByDateRange(todayList)
     }
 
     for (let task of todayList){
