@@ -1,0 +1,78 @@
+<div class="taskLinkFormContainer formContainer">
+    <h2 class="taskLinkFormTitle">
+    </h2>
+
+    <div class="projectLinkOptions linkOptions">
+        <div>
+            <a  class="changePriorityLink" href="#">Change Priority</a>
+        </div>
+        <div>
+            <a class="renameTaskLink" href="#">Rename Task</a>
+        </div>
+        <div>
+            <a class="changeDueDateLink" href="#">Change Due Date</a>
+        </div>
+        <div>
+            <a class="addNotesLink" href="#">View/Add Notes</a>
+        </div>
+        <div>
+            <a class="deleteTaskLink" href="#">Delete Task</a>
+        </div>
+    </div>
+
+    <div class="changePriorityOption taskOption">
+        <form action="">
+            <div>
+                <label>Pick a Priority
+                    <input type="radio" name="priority" id="priorityLow" value="low">
+                    <label for="priorityLow">Low</label>
+        
+                    <input type="radio" name="priority" id="priorityHigh" value="high">
+                    <label for="priorityHigh">High</label>
+                </label>
+            </div>
+            <button class="changePriorityButton" type="button">Submit</button>
+        </form>
+    </div>
+    
+    <div class="renameTaskOption taskOption">
+        <form action="">
+            <div>
+                <label for="renameTaskInput">Enter Task Name</label>
+                <input  class="renameTask" id="renameTaskInput" type="text" required>
+            </div>
+            <button class="renameTaskButton" type="button">Submit</button>
+        </form>
+    </div>
+
+    <div class="newDateTaskOption taskOption">
+        <form action="">
+            <div>
+                <label for="newDateInput">Pick New Due Date</label>
+                <input class="newDueDate" id="newDateInput" type="date" required>
+            </div>
+            <button class="newDateButton" type="button">Submit</button>
+        </form>
+    </div>
+
+    <div class="addNotesOption taskOption">
+        <form action="">
+            <div>
+                <label for="userNotesLink">Enter Notes</label>
+                <textarea id="userNotesLink" rows="3" style="width: 100%;"></textarea>
+            </div>
+            <button class="addNotesButton" type="button">Submit</button>
+        </form>
+    </div>
+
+    <div class="deleteTaskOption taskOption">
+        <form action="">
+            <div>
+                <label for="deleteTasktInput">Are you sure you want to delete this task?</label>
+                <input  class="deleteTask" id="deleteTasktInput" type="checkbox" required>
+            </div>
+            <button class="deleteTaskButton" type="button">Submit</button>
+        </form>
+    </div>
+
+</div>
