@@ -1,4 +1,4 @@
-import { newProjectVerification } from "./projects"
+import { newProjectVerification, updateProjectList } from "./projects"
 import { initialize, loadModule } from "."
 import * as pjLinks from "./projectLinkOptions";
 import * as tkLinks from "./taskLinkOptions";
@@ -89,6 +89,7 @@ function newProjectClass(event){
         }
 
         newProjectVerification(projectNameInput)
+        updateProjectList()
         overlayToggle()
         removeActiveForm()
         initialize()

@@ -3,11 +3,9 @@ import { parseISO, format } from "date-fns"
 import { filterTasksByDateRange } from "./upcoming"
 
 export class Project {
-    constructor(name){
+    constructor(name, tasks = []){
         this._name = name,
-        this._tasks = [new Task('Family'),
-        new Task('Apple'),
-        new Task('Destiny', 'low', '2023/10/25')]
+        this._tasks = tasks
     }
 
     get projectName(){
@@ -73,32 +71,32 @@ class Task {
     }
 }
 
-let initialProjectList = [
-    new Project('Family'),
-    new Project('Shopping'),
-    new Project('Education'),
-    new Project('Gym')
-]
 
-let projectListJSON = JSON.stringify(initialProjectList);
-localStorage.setItem('projectList', projectListJSON);
 
 function getProjectList(){
-    let projectListJSON = localStorage.getItem('projectList')
+    let initialProjectList = [
+        new Project('Family', [new Task('Predefined Task', 'high', '2022/12/31')]),
+        new Project('Shopping'),
+        new Project('Education'),
+        new Project('Gym')
+    ]
+    
+    if (!sessionStorage.getItem('projectList')){
+        let projectListJSON = JSON.stringify(initialProjectList);
+        sessionStorage.setItem('projectList', projectListJSON);
+    }
+
+    let projectListJSON = sessionStorage.getItem('projectList')
     let retrievedData = JSON.parse(projectListJSON)
-    return retrievedData.map(item => new Project(item._name))
+    return retrievedData.map(item => new Project(item._name, item._tasks.map(task => new Task(task._name, task._priority, task._dueDate, task._notes))))  
 }
 
 export let projectList = getProjectList()
 
 export function updateProjectList(){
     let updatedProjectListJSON = JSON.stringify(projectList);
-    localStorage.setItem('projectList', updatedProjectListJSON);
+    sessionStorage.setItem('projectList', updatedProjectListJSON);
 }
-
-
-
-
 
 export function displayProjects() {
     let projectListContainer = document.querySelector('.projectNameLinksContainer');
@@ -121,27 +119,25 @@ export function displayProjectTasks(item){
     tasksContainer.classList.add('tasksContainer');
     let todayView = document.querySelector('.todayTasks')
     let dateRange = document.querySelector('.upcomingTabDateRange');
-    let todayList = item.tasks
-    
-    if (todayView){
-        let todayFormatted = format(new Date(), 'yyyy/MM/dd');
-        todayList = todayList.filter((item) => item.dateDue === todayFormatted)
-    } else if(dateRange){
-        todayList = filterTasksByDateRange(todayList)
-    }
+
+    let todayList = item.tasks.filter(task => {
+        if (todayView) {
+            let todayFormatted = format(new Date(), 'yyyy/MM/dd');
+            return task.dateDue === todayFormatted;
+        } else if (dateRange) {
+            return filterTasksByDateRange([task]).length > 0;
+        } else {
+            return true;
+        }
+    });
 
     for (let task of todayList){
-
         let taskContainer = document.createElement('div')
         let taskItem = document.createElement('a');
         taskItem.setAttribute('href', '#');
         taskItem.classList.add('taskItem');
 
-        if (task.priorityLevel === 'high'){
-            taskContainer.classList.toggle('highPriority')
-        } else if (task.priorityLevel === 'low') {
-            taskContainer.classList.toggle('lowPriority')
-        }
+        taskContainer.classList.toggle(task.priorityLevel === 'high' ? 'highPriority' : 'lowPriority');
         
         taskItem.innerHTML = task.taskName;
         taskContainer.appendChild(taskItem)

@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -8,6 +9,12 @@ module.exports = {
     new HtmlWebpackPlugin({
         title: "To-do List",
         template: "./src/index.html"
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/*.html', to: '[name][ext]', globOptions: { ignore: ['index.html']}
+       },
+      ],
     }),
   ],
   output: {
@@ -21,6 +28,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,

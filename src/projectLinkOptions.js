@@ -1,4 +1,4 @@
-import { captureDate, projectList } from "./projects";
+import { captureDate, projectList, updateProjectList } from "./projects";
 import { overlayToggle, removeActiveForm } from "./eventListeners";
 import { displayBackSvg, getName } from "./taskLinkOptions";
 import { initialize } from ".";
@@ -64,6 +64,7 @@ export function taskLinkOption(){
                     }
 
                     sta.addTask(newTaskInput, selectedValue, taskDate, notes)
+                    updateProjectList()
                     overlayToggle()
                     removeActiveForm()
                     initialize()
@@ -89,7 +90,7 @@ export function renameLinkOption(){
                     }
 
                     sta.renameProject(renameProjectInput)
-
+                    updateProjectList()
                     overlayToggle()
                     removeActiveForm()
                     initialize()
@@ -121,6 +122,7 @@ export function deleteLinkOption(){
                 }
             }
 
+            updateProjectList()
             overlayToggle()
             removeActiveForm()
             initialize()
