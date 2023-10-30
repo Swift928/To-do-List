@@ -75,7 +75,7 @@ class Task {
 
 function getProjectList(){
     let initialProjectList = [
-        new Project('Family', [new Task('Predefined Task', 'high', '2022/12/31')]),
+        new Project('Family', [new Task('Predefined Task', 'high', '2022/12/31', 'This is a predefined task')]),
         new Project('Shopping'),
         new Project('Education'),
         new Project('Gym')

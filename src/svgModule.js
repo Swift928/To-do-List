@@ -49,6 +49,7 @@ export function handleBackSvgClick(){
 
 
 let contentDisplay = document.querySelector('.contentDisplay');
+
 contentDisplay.addEventListener('click', (event)=> {
     if (event.target.classList.contains( 'trashSvg')) {
         loadModule('taskLinkForm.html', () => {
@@ -66,3 +67,8 @@ contentDisplay.addEventListener('click', (event)=> {
         });
     }
 })
+
+export function toggleProjectNameLinks() {
+  let projectNameLinksContainer = document.querySelector('.projectNameLinksContainer');
+  projectNameLinksContainer.classList.toggle('activeGrid');
+}

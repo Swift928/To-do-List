@@ -2,18 +2,25 @@ import { newProjectVerification, updateProjectList } from "./projects"
 import { initialize, loadModule } from "."
 import * as pjLinks from "./projectLinkOptions";
 import * as tkLinks from "./taskLinkOptions";
-import { handleBackSvgClick } from "./svgModule";
+import { handleBackSvgClick, toggleProjectNameLinks } from "./svgModule";
 
 
 
 export function eventListeners(){
+    let contentDisplay = document.querySelector('.contentDisplay');
+
     handleBackSvgClick()
 
     let projectSvg = document.querySelector('.newProjectSvg')
     projectSvg.addEventListener('click', ()=>{
     overlayToggle()
-    loadModule('newProjectSvg.html', newProjectClass)
-        
+    loadModule('newProjectSvg.html', newProjectClass)  
+    })
+
+    let menuSvg = document.querySelector('.menuSvg')
+    menuSvg.addEventListener('click', ()=>{
+        toggleProjectNameLinks()
+        menuSvgOverlayToggle()
     })
 
     const overlay = document.querySelector('.overlay')
@@ -22,6 +29,13 @@ export function eventListeners(){
         removeActiveForm()
     })
 
+    contentDisplay.addEventListener('click', (event)=>{
+        if (event.target.classList.contains('overlay2')){
+        menuSvgOverlayToggle()
+        toggleProjectNameLinks()
+        }
+    })
+    
     let projectNameLinksContainer = document.querySelector('.projectNameLinksContainer')
     projectNameLinksContainer.addEventListener('click', (event)=>{
         if (event.target.classList.contains('projectNameLink')){
@@ -33,7 +47,6 @@ export function eventListeners(){
         }
     })
 
-    let contentDisplay = document.querySelector('.contentDisplay');
     contentDisplay.addEventListener('click', (event)=> {
         if (event.target.classList.contains('taskItem')) {
             loadModule('taskLinkForm.html', () => {
@@ -62,6 +75,17 @@ export function eventListeners(){
 export function overlayToggle() {
     const overlay = document.querySelector('.overlay')
     overlay.classList.toggle('active')
+}
+
+function menuSvgOverlayToggle() {
+    const contentDisplay = document.querySelector('.contentDisplay');
+    if (contentDisplay.querySelector('.overlay2')) {
+        contentDisplay.removeChild(contentDisplay.querySelector('.overlay2'))
+        return;
+    }
+    const overlay2 = document.createElement('div');
+    overlay2.classList.add('overlay2', 'active');
+    contentDisplay.appendChild(overlay2);
 }
 
 export function removeActiveForm(){
