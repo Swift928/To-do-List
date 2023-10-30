@@ -7,7 +7,6 @@ module.exports = {
   entry: './src/index.js',
   plugins: [
     new HtmlWebpackPlugin({
-        title: "To-do List",
         template: "./src/index.html"
     }),
     new CopyWebpackPlugin({
