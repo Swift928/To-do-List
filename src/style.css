@@ -117,9 +117,12 @@ a, li {
     font-weight: normal;
 }
 
-.newProjectSvg,
-.trashSvg{
+.newProjectSvg{
     width: 1.5rem;
+}
+
+.trashSvg{
+    height: 18px;
 }
 
 svg{
@@ -146,6 +149,10 @@ svg{
     z-index: 1;
 }
 
+.linkOptions > div{
+    margin: 5px 0;
+}
+
 .projectLinkSvg{
     height: 2rem;
 }
@@ -166,6 +173,19 @@ svg{
     height: 2rem;
 }
 
+.firstSideContainer a:hover,
+.secondSideContainer a:hover,
+.formContainer a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.firstSideContainer :has(a:hover) :not(:hover),
+.secondSideContainer :has(a:hover) :not(:hover){
+    scale: 0.95;
+    transition: all 0.2s ease-in-out;
+}
+
 span.backSvg{
     height: 2rem;
 }
@@ -177,6 +197,17 @@ span.backSvg{
     background-color: #0000001f;
     display: flex;
     justify-content: space-between;
+    scale: 99%;
+}
+
+.trashSvg :hover{
+    fill: #ff0000;
+}
+
+.tasksContainer > div:hover{
+    background-color: #0000003f;
+    box-shadow: 2px 2px 5px 2px #0000003f;
+    scale: 100%;
 }
 
 .dateDiv,
@@ -211,4 +242,15 @@ span.backSvg{
 
 .dialog {
     display: none;
+}
+
+.addTaskOption.active > form{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.addTaskOption > form,
+.addTaskOption{
+    height: calc(100% - 48.5px);
 }

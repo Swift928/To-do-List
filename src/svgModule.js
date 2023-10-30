@@ -50,7 +50,7 @@ export function handleBackSvgClick(){
 
 let contentDisplay = document.querySelector('.contentDisplay');
 contentDisplay.addEventListener('click', (event)=> {
-    if (event.target.classList.contains('trashSvg')) {
+    if (event.target.classList.contains( 'trashSvg')) {
         loadModule('taskLinkForm.html', () => {
             let taskLinkFormTitle = document.querySelector('.taskLinkFormTitle');
             taskLinkFormTitle.textContent = `Task: ${event.target.closest('div').querySelector('a').textContent}`;
