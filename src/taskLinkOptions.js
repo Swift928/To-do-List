@@ -114,6 +114,7 @@ export function renameTaskOption(){
                             }
         
                             b.renameTask(selectedValue)
+                            updateProjectList()
                             overlayToggle()
                             removeActiveForm()
                             initialize()
@@ -151,6 +152,7 @@ export function changeDueDateTaskOption(){
 
                             let date = captureDate(changedDate)
                             b.changeDate(date)
+                            updateProjectList()
                             overlayToggle()
                             removeActiveForm()
                             initialize()
@@ -187,6 +189,7 @@ export function getNotesContent(){
 
                             addNotesButton.addEventListener('click', ()=>{
                                 b.addNotes(textarea.value)
+                                updateProjectList()
                                 overlayToggle()
                                 removeActiveForm()
                                 initialize()
@@ -221,6 +224,7 @@ export function deleteTaskOption(){
                     }
 
                     a.removeTask(taskName)
+                    updateProjectList()
                     overlayToggle()
                     removeActiveForm()
                     initialize()
