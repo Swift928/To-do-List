@@ -17,10 +17,13 @@ a:not(.contentDisplay a){
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-.overlay{
+.overlay,
+.overlay2{
     display: none;
     position: absolute;
     backdrop-filter: blur(2px);
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
@@ -120,6 +123,11 @@ a, li {
 .newProjectSvg{
     width: 1.5rem;
 }
+.menuSvg{
+    width: 2rem;
+    display: none;
+}
+
 
 .trashSvg{
     width: 23px;
@@ -253,4 +261,54 @@ span.backSvg{
 .addTaskOption > form,
 .addTaskOption{
     height: calc(100% - 48.5px);
+}
+
+.activeGrid{
+    display: grid !important;
+}
+
+@media screen and (max-width: 768px){
+    .header{
+        padding: 0 10px;
+    }
+
+    .bodyContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sideBar{
+        padding: 10px;
+    }
+    .contentDisplay{
+        flex-grow: 1;
+        position: relative;
+    }
+
+    .firstSideContainer > ul{
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: space-between;
+    }
+
+    .projectTitleContainer{
+        justify-content: normal;
+        margin-bottom: .7rem;
+    }
+
+    .menuSvg{
+        display: block;
+        margin-left: auto;
+    }
+
+    .newProjectSvg{
+        margin-left: 10px;
+    }
+
+    .projectNameLinksContainer{
+        display: none;
+        position: relative;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
