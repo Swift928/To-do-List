@@ -75,6 +75,20 @@ export function eventListeners(){
 export function overlayToggle() {
     const overlay = document.querySelector('.overlay')
     overlay.classList.toggle('active')
+    removeMenuSvgOverlay()
+}
+
+function removeMenuSvgOverlay(){
+    const contentDisplay = document.querySelector('.contentDisplay');
+    if (contentDisplay.querySelector('.overlay2')) {
+        contentDisplay.removeChild(contentDisplay.querySelector('.overlay2'))
+    }
+
+    if (document.querySelector('.projectNameLinksContainer.activeGrid')) {
+        let pNLC = document.querySelector('.projectNameLinksContainer');
+        pNLC.classList.remove('activeGrid');
+    }
+    
 }
 
 function menuSvgOverlayToggle() {
