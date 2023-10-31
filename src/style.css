@@ -285,6 +285,10 @@ span.backSvg {
     height: calc(100% - 48.5px);
 }
 
+.projectTitle {
+    pointer-events: none;
+}
+
 @media screen and (max-width: 768px) {
     .header {
         height: 55px;
@@ -294,11 +298,14 @@ span.backSvg {
     .bodyContainer {
         display: flex;
         flex-direction: column;
+        height: calc(100vh - 55px);
     }
 
     .sideBar {
         padding: 10px;
+        gap: 15px;
     }
+
     .contentDisplay {
         flex-grow: 1;
         position: relative;
@@ -313,11 +320,6 @@ span.backSvg {
     .projectTitleContainer {
         justify-content: normal;
         margin-bottom: 0;
-    }
-
-    .menuSvg {
-        display: block;
-        margin-left: auto;
     }
 
     .newProjectSvg {
@@ -335,6 +337,17 @@ span.backSvg {
         margin-top: 0.7rem;
         gap: 10px;
         animation: bigMenu 400ms cubic-bezier(0.16, 0.27, 0.34, 1.07);
+    }
+
+    .projectTitle {
+        margin-left: auto;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+    .menuSvg {
+        display: block;
+        margin-right: auto;
     }
 
     .activeGrid {
