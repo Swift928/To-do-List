@@ -1,28 +1,26 @@
 import './style.css';
-import { tasksRender } from './tasks';
+import { tasksRender, loadTabs } from './tasks';
 import { eventListeners } from './eventListeners';
 import { displayProjects } from './projects';
-import { loadTabs } from './tasks';
-
 
 export function loadModule(moduleName, callback = undefined) {
     fetch(`./${moduleName}`)
-        .then(response => response.text())
-        .then(data => {
+        .then((response) => response.text())
+        .then((data) => {
             document.querySelector('.contentDisplay').innerHTML += data;
-            if (callback){
-                callback()
+            if (callback) {
+                callback();
             }
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
 }
 
-loadTabs()
+loadTabs();
 
 export function initialize() {
-    tasksRender()
-    displayProjects()
+    tasksRender();
+    displayProjects();
 }
-eventListeners()
+eventListeners();
 
-loadModule('./allTasks.html', initialize)
+loadModule('./allTasks.html', initialize);
