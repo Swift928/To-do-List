@@ -1,45 +1,47 @@
 *,
 html,
-body{
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:  'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
 }
 
-body{
+body {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-a:not(.contentDisplay a){
+a:not(.contentDisplay a) {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .overlay,
-.overlay2{
+.overlay2 {
     display: none;
     position: absolute;
     backdrop-filter: blur(2px);
     top: 0;
     left: 0;
+    bottom: 0;
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
 .active {
     display: block !important;
 }
 
-.deactivate{
+.deactivate {
     display: none;
 }
 
-.header{
+.header {
     height: 65px;
     background-color: #000000fa;
     color: #ffffff9e;
@@ -57,20 +59,19 @@ h1 {
 }
 
 .siteSvg,
-.searchSvg{
+.searchSvg {
     fill: yellow;
     height: 30px;
 }
 
-.bodyContainer{
-    
-    display: grid; 
+.bodyContainer {
+    display: grid;
     grid-template-columns: 1fr 5fr;
     /* flex-grow: 1;   */
     height: calc(100vh - 65px);
 }
 
-.leftHeaderContainer{
+.leftHeaderContainer {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -78,7 +79,7 @@ h1 {
     width: max-content;
 }
 
-.sideBar{
+.sideBar {
     background-color: #00000069;
     display: flex;
     flex-direction: column;
@@ -86,17 +87,10 @@ h1 {
     padding: 20px;
 }
 
-.contentDisplay{
-    background-color: #c4c6bc36;
-    padding: 20px;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
-
 .contentDisplay h3,
 .projectLinkFormTitle,
 .taskLinkFormTitle,
-.newProjectFormTitle{
+.newProjectFormTitle {
     margin-bottom: 10px;
     width: 100%;
     padding-bottom: 5px;
@@ -109,45 +103,51 @@ h1 {
     margin-top: 40px;
 }
 
-
-a, li {
+a,
+li {
     list-style: none;
     text-decoration: none;
     color: inherit;
     width: 100%;
 }
 
-.sideContainer :not(h2){
+.sideContainer :not(h2) {
     line-height: 30px;
     font-size: 1.25rem;
     font-weight: normal;
 }
 
-.newProjectSvg{
+.newProjectSvg {
     width: 1.5rem;
 }
-.menuSvg{
+.menuSvg {
     width: 2rem;
     display: none;
 }
 
-
-.trashSvg{
-    width: 23px;
+.trashSvg {
+    max-width: 1.25rem;
 }
 
-svg{
+svg {
     cursor: pointer;
 }
 
-.projectTitleContainer{
+.projectTitleContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
 }
 
-.formContainer{
+.contentDisplay {
+    background-color: #c4c6bc36;
+    padding: 20px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.formContainer {
     position: absolute;
     padding: 15px;
     border-radius: 5% 15% 1%;
@@ -157,30 +157,40 @@ svg{
     background: #b1b5be;
     height: 300px;
     width: 300px;
-    z-index: 1;
+    z-index: 3;
+    animation: formAnimation 350ms ease-in-out;
 }
 
-.linkOptions > div{
+@keyframes formAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.linkOptions > div {
     margin: 5px 0;
 }
 
-.projectLinkSvg{
+.projectLinkSvg {
     height: 2rem;
 }
 
 .projectOption,
-.taskOption{
+.taskOption {
     display: none;
 }
 
-.taskOption.active{
+.taskOption.active {
     display: flex !important;
     flex-direction: column;
     height: calc(100% - 49px);
     justify-content: space-between;
 }
 
-.backSvg:has(svg) svg{
+.backSvg:has(svg) svg {
     height: 2rem;
 }
 
@@ -192,16 +202,16 @@ svg{
 }
 
 .firstSideContainer :has(a:hover) :not(:hover),
-.secondSideContainer :has(a:hover) :not(:hover){
+.secondSideContainer :has(a:hover) :not(:hover) {
     scale: 0.95;
     transition: all 0.2s ease-in-out;
 }
 
-span.backSvg{
+span.backSvg {
     height: 2rem;
 }
 
-.tasksContainer > div{
+.tasksContainer > div {
     line-height: 30px;
     margin-bottom: 10px;
     padding: 0 10px;
@@ -211,39 +221,48 @@ span.backSvg{
     scale: 99%;
 }
 
-.trashSvg :hover{
+.trashSvg :hover {
     fill: #ff0000;
 }
 
-.tasksContainer > div:hover{
+.tasksContainer > div:hover {
     background-color: #0000003f;
     box-shadow: 2px 2px 5px 2px #0000003f;
     scale: 100%;
 }
 
 .dateDiv,
-.notesContainer{
+.notesContainer {
     margin-right: 10px;
 }
 
-.notesContainer{
+.notesContainer {
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
-
-.withSvg{
+.withSvg {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.highPriority{
-    background: linear-gradient(to right, #ff0000, #ff0000 5px, transparent 5px);
+.highPriority {
+    background: linear-gradient(
+        to right,
+        #ff0000,
+        #ff0000 5px,
+        transparent 5px
+    );
 }
 
-.lowPriority{
-    background: linear-gradient(to right, #037801bf, #037801bf 5px, transparent 5px);
+.lowPriority {
+    background: linear-gradient(
+        to right,
+        #037801bf,
+        #037801bf 5px,
+        transparent 5px
+    );
 }
 
 #userNotes,
@@ -255,63 +274,83 @@ span.backSvg{
     display: none;
 }
 
-.addTaskOption.active > form{
+.addTaskOption.active > form {
     display: flex !important;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
 }
 .addTaskOption > form,
-.addTaskOption{
+.addTaskOption {
     height: calc(100% - 48.5px);
 }
 
-.activeGrid{
-    display: grid !important;
-}
-
-@media screen and (max-width: 768px){
-    .header{
+@media screen and (max-width: 768px) {
+    .header {
+        height: 55px;
         padding: 0 10px;
     }
 
-    .bodyContainer{
+    .bodyContainer {
         display: flex;
         flex-direction: column;
     }
 
-    .sideBar{
+    .sideBar {
         padding: 10px;
     }
-    .contentDisplay{
+    .contentDisplay {
         flex-grow: 1;
         position: relative;
     }
 
-    .firstSideContainer > ul{
+    .firstSideContainer > ul {
         display: grid;
         grid-auto-flow: column;
         justify-content: space-between;
     }
 
-    .projectTitleContainer{
+    .projectTitleContainer {
         justify-content: normal;
-        margin-bottom: .7rem;
+        margin-bottom: 0;
     }
 
-    .menuSvg{
+    .menuSvg {
         display: block;
         margin-left: auto;
     }
 
-    .newProjectSvg{
-        margin-left: 10px;
+    .newProjectSvg {
+        position: absolute;
+        bottom: 3%;
+        left: 3%;
+        width: 2.5rem;
+        z-index: 1;
     }
 
-    .projectNameLinksContainer{
+    .projectNameLinksContainer {
         display: none;
         position: relative;
         grid-template-columns: repeat(2, 1fr);
+        margin-top: 0.7rem;
         gap: 10px;
+        animation: bigMenu 400ms cubic-bezier(0.16, 0.27, 0.34, 1.07);
+    }
+
+    .activeGrid {
+        display: grid !important;
+    }
+
+    @keyframes bigMenu {
+        0% {
+            transform: scale(0);
+        }
+
+        98% {
+            transform: scale(1.01);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 }
