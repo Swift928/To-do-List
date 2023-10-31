@@ -78,10 +78,12 @@ export function eventListeners() {
         loadModule('newProjectSvg.html', newProjectClass);
     });
 
-    const menuSvg = document.querySelector('.menuSvg');
-    menuSvg.addEventListener('click', () => {
-        toggleProjectNameLinks();
-        menuSvgOverlayToggle();
+    const menuSvg = document.querySelectorAll('.menuSvg, .projectTitle');
+    menuSvg.forEach((element) => {
+        element.addEventListener('click', () => {
+            toggleProjectNameLinks();
+            menuSvgOverlayToggle();
+        });
     });
 
     const overlay = document.querySelector('.overlay');
